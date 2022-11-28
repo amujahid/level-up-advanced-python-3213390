@@ -54,7 +54,6 @@ def get_average():
 
 if __name__ == '__main__':
     get_average()
-# push this to github
-# git add .
-# git commit
-# git push
+# push this to github with comment 'done with challenge'
+#git add .
+#git commit -m 'done with challenge'
