@@ -34,20 +34,27 @@ def get_average():
        s corresponds to a seconds digit
        M corresponds to a milliseconds digit (no rounding, just the single digit)"""
     racetimes = get_rhines_times()
-    total = datetime.datetime.strptime('1:02:3', '%M:%S:%f')
+    total = datetime.datetime.strptime('1:02.3', '%M:%S.%f')
     print(total)
     a = datetime.timedelta(minutes=1, seconds=2)
     print('THis is time:', a+total)
 
     for i in racetimes:
+
         try:
-            total += datetime.datetime.strptime(i, '%M:%S.%f')
-        except ValueError:
-            total += datetime.datetime.strptime(i, '%M:%S')
+            m, s = i.split(':')
+            s, ss = s.split('.')
+        except:
+            m, s = i.split(':')
+            total = datetime.timedelta(minutes=int(
+                m), seconds=int(s), milliseconds=int(ss))
+    print(total/len(racetimes))
+    return total/len(racetimes)
 
-    average = total / len(racetimes)
-    print(average.strftime('%M:%S:%f')[:-3])
-    return average.strftime('%M:%S:%f')[3:6]
 
-
-get_average()
+if __name__ == '__main__':
+    get_average()
+# push this to github
+# git add .
+# git commit
+# git push
