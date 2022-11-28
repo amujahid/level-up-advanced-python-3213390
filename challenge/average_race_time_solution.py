@@ -22,6 +22,7 @@ def get_rhines_times():
           rhines_times.append(get_time(line))
     return rhines_times
 
+
 def get_average():
     """Return Jennifer Rhines' average race time in the format:
        mm:ss:M where :

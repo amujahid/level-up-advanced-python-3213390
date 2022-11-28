@@ -4,16 +4,28 @@
 import re
 import datetime
 
+
 def get_data():
     """Return content from the 10k_racetimes.txt file"""
     with open('10k_racetimes.txt', 'rt') as file:
         content = file.read()
+
     return content
+
 
 def get_rhines_times():
     """Return a list of Jennifer Rhines' race times"""
+
     races = get_data()
-    pass
+
+    a = races.split('\n')
+    b = [i for i in a if 'Rhines' in i]
+    jenny = []
+    for i in b:
+        jenny.append(i.split()[0])
+    print(jenny)
+    return jenny
+
 
 def get_average():
     """Return Jennifer Rhines' average race time in the format:
@@ -22,4 +34,20 @@ def get_average():
        s corresponds to a seconds digit
        M corresponds to a milliseconds digit (no rounding, just the single digit)"""
     racetimes = get_rhines_times()
-    pass
+    total = datetime.datetime.strptime('1:02:3', '%M:%S:%f')
+    print(total)
+    a = datetime.timedelta(minutes=1, seconds=2)
+    print('THis is time:', a+total)
+
+    for i in racetimes:
+        try:
+            total += datetime.datetime.strptime(i, '%M:%S.%f')
+        except ValueError:
+            total += datetime.datetime.strptime(i, '%M:%S')
+
+    average = total / len(racetimes)
+    print(average.strftime('%M:%S:%f')[:-3])
+    return average.strftime('%M:%S:%f')[3:6]
+
+
+get_average()
